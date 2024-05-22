@@ -8,7 +8,7 @@ const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
-const { readTrailerflix } = require('./src/trailerflixController');
+const { readTrailerflix, getTrailerFind } = require('./src/trailerflixController');
 const PORT = process.env.PORT || 3000;
 let DB = [];
 app.use((req,res,next)=>{
@@ -48,6 +48,12 @@ app.get('/', (req,res)=>{
 // Crea un endpoint llamado /trailer/:id que retorne la URL del trailer de la película o serie. 
 // Si ésta no posee video asociado, que retorne un mensaje en formato JSON notificando la no disponibilidad del mismo.
 
+//ej --> http://localhost:3008/trailer/34
+app.get('/trailer/:id',(req,res)=>{
+    const id = parseInt(req.params.id);
+    const trailer = getTrailerFind(id);
+    res.send(trailer);
+})
 
 // Leer las recomendaciones de: https://github.com/mariaelisaaraya/tp1ObligatorioIngenias/blob/master/readme.md
 
