@@ -1,3 +1,4 @@
+const { error } = require('console');
 const fs = require('fs');
 
 function readTrailerflix(){
@@ -33,4 +34,32 @@ function getTrailerFind(id){
     return result;
 }
 
-module.exports = {readTrailerflix, getTrailerFind}
+function getAllOrderByTitle(){
+    
+    return readTrailerflix().sort((a,b)=>{
+        if ( a.titulo > b.titulo ) return 1
+        if ( a.titulo < b.titulo ) return -1
+        return 0
+    })
+
+}
+
+
+function getTitles(titulo){
+    titulo=removeAccent(titulo)
+    let movies = readTrailerflix().filter(trailer => 
+        removeAccent(trailer.titulo.toLowerCase()).includes(titulo)
+        )
+    if(movies == "") 
+        return {
+                 error:"no se encontraron coincidencias con ( " + titulo+" )" 
+                }
+    else return movies
+}
+
+function removeAccent(cadena){
+    return cadena.replace('á','a').replace('é','e')
+                .replace('í','i').replace('ó','o').replace('ú','u')
+} 
+
+module.exports = {readTrailerflix, getTrailerFind,getAllOrderByTitle,getTitles}

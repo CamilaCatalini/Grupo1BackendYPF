@@ -8,7 +8,7 @@ const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
-const { readTrailerflix, getTrailerFind } = require('./src/trailerflixController');
+const { readTrailerflix, getTrailerFind ,getAllOrderByTitle,getTitles} = require('./src/trailerflixController');
 const PORT = process.env.PORT || 3000;
 let DB = [];
 app.use((req,res,next)=>{
@@ -24,14 +24,20 @@ app.get('/', (req,res)=>{
 
 //PARA REALIZAR!!!
 
-// *** ENDPOINT 1 ***
-// Ruta --> “/catalogo”
-// Crea un endpoint llamado /catalogo que liste todo el contenido de trailerflix JSON
 
-// *** ENDPOINT 2 ***
-// Ruta --> “/titulo/:title”
-// Crea un endpoint llamado /titulo/:title que liste el catálogo de películas y/o series 
-//que se aproxime al título enviado. (la búsqueda del nombre debe ser parcial)
+//  “/catalogo” ordenado por nombre
+//ej --> http://localhost:3008/catalogo
+app.get("/catalogo",(req,res)=>{
+    res.json(getAllOrderByTitle(DB));
+})
+
+
+
+//ej --> http://localhost:3008/titulo/guasón
+//       http://localhost:3008/titulo/guas
+app.get("/titulo/:title",(req,res)=>{
+    res.json(getTitles(req.params.title.toLowerCase()));
+})
 
 // *** ENDPOINT 3 ***
 // Ruta --> “/categoria/:cat”
