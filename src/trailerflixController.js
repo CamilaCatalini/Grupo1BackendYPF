@@ -1,4 +1,3 @@
-const {error} = require("console");
 const fs = require("fs");
 
 function readTrailerflix() {
@@ -8,15 +7,13 @@ function readTrailerflix() {
 }
 
 function getTrailerFind(id) {
-    const peliculas = readTrailerflix();
 
-    let trailer = peliculas.find((p) => p.id === id);
-    let result;
+    let trailer = readTrailerflix().find((p) => p.id === id);
 
     //Verifica que se haya encontrado una pelicula con el ID ingresado
     //Verifica si existe el campo trailer y si este no esta en blanco.
     if (trailer?.id && trailer?.trailer && trailer.trailer != "") {
-        result = {
+        return {
             id: trailer.id,
             titulo: trailer.titulo,
             trailer: trailer.trailer,
@@ -24,12 +21,10 @@ function getTrailerFind(id) {
     } else {
         //Retorna un msj de error si el ID no existe o si la pelicula no tiene trailer.
         let msj = !trailer?.id ? "No se encontro la pelicula." : "No se encontro el trailer.";
-        result = {
+        return {
             error: msj,
         };
     }
-
-    return result;
 }
 
 function getAllOrderByTitle() {
@@ -54,11 +49,9 @@ function removeAccent(cadena) {
     return cadena.replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u");
 }
 
-function getCategory(categoria) {
+function getCategory(cat) {
     let movies = readTrailerflix();
-    console.log(movies);
-    let cat = removeAccent(categoria);
-    let result = movies.filter((item) => removeAccent(item.categoria.toLowerCase()).includes(cat));
+    let result = movies.filter((item) => removeAccent(item.categoria.toLowerCase()) === removeAccent(cat.toLowerCase()));
     if (result != "") {
         return result;
     } else {
