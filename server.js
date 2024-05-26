@@ -4,6 +4,9 @@ dotenv.config();
 const express = require("express");
 const app = express();
 
+app.set('view engine', 'ejs');
+app.use(express.static('views'));
+
 //MIDDLEWARE
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
@@ -15,6 +18,7 @@ const {
     getTitles,
     getCategory,
 } = require("./src/trailerflixController");
+
 const PORT = process.env.PORT || 3000;
 let DB = [];
 app.use((req, res, next) => {
@@ -22,13 +26,10 @@ app.use((req, res, next) => {
     next();
 });
 
-// SERVIDOR WEB
-// metodo get generico
-app.get("/", (req, res) => {
-    res.send(DB);
+// La ruta raíz
+app.get('/', (req, res) => {
+  res.render('index', DB);
 });
-
-//PARA REALIZAR!!!
 
 //  “/catalogo” ordenado por nombre
 //ej --> http://localhost:3008/api/catalogo
@@ -45,15 +46,15 @@ app.get("/api/titulo/:title", (req, res) => {
 // Categorías
 //Endpoint para listar el contenido según su categoría (serie o película)
 
-// ejemplo: localhost:3008/api/categoria/serie
-// ejemplo2: localhost:3008/api/categoria/pelicula
+// ejemplo: http://localhost:3008/api/categoria/serie
+// ejemplo2: http://localhost:3008/api/categoria/pelicula
 
 app.get("/api/categoria/:cat", (req, res) => {
     res.json(getCategory(req.params.cat.toLowerCase()));
 });
 
 //Endpoint para listar todo el contenido independientemente de su categoría
-//ruta --> "api/categoría"
+//ruta --> "http://localhost:3008/api/categoría"
 app.get("/api/categoria/", (req, res) => {
     res.json(DB);
 });
@@ -63,19 +64,15 @@ app.get("/api/categoria/", (req, res) => {
 // Crea un endpoint llamado /reparto/:act que liste el catálogo que incluya a la actriz o
 //actor indicado por el nombre. (la búsqueda del nombre debe ser parcial)
 
-// *** ENDPOINT 5 ***
+
 // Ruta --> “/api/trailer/:id”
 // Crea un endpoint llamado /trailer/:id que retorne la URL del trailer de la película o serie.
 // Si ésta no posee video asociado, que retorne un mensaje en formato JSON notificando la no disponibilidad del mismo.
 
 //ej --> http://localhost:3008/api/trailer/34
 app.get("/api/trailer/:id", (req, res) => {
-    const id = parseInt(req.params.id);
-    const trailer = getTrailerFind(id);
-    res.send(trailer);
+    res.json(getTrailerFind(parseInt(req.params.id)));
 });
-
-// Leer las recomendaciones de: https://github.com/mariaelisaaraya/tp1ObligatorioIngenias/blob/master/readme.md
 
 // Mensaje de error pagina no encontrada
 app.get("*", (req, res) => {

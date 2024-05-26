@@ -1,0 +1,37 @@
+<body style="height: 100vh; background-color: black; color: azure; margin: 0; padding: 0;" >
+    <div style="padding: 1%;">
+        <h1 style="text-align: center;">BIENVENID@S!!!</h1>
+        <p style="text-align: center;">contenidos</p>
+        
+        <table style="display: flex; justify-content: center;">
+            <tr>
+              <th style="border: 3px solid white; padding: 10px;">EndPoints</th>
+              <th style="border: 3px solid white; padding: 10px;">Descripcion</th>
+            </tr>
+            <tr>
+              <td style="border: 1px solid white; padding: 10px;"><a style="color:chartreuse;" class="button" href="http://localhost:3008/">http://localhost:3008/</a></td>
+              <td style="border: 1px solid white; padding: 10px;">Devuelve contenido en formato texto de bienvenida.</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid white; padding: 10px;"><a style="color:chartreuse;" class="button" href="http://localhost:3008/api/catalogo">http://localhost:3008/api/catalogo</a></td>
+              <td style="border: 1px solid white; padding: 10px;">Devuelve todas las películas o series ordenadas de forma ascendente por nombre.</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid white; padding: 10px;"><a style="color:chartreuse;" class="button" href="http://localhost:3008/api/titulo/:titulo">http://localhost:3008/api/titulo/:titulo</a></td>
+                <td style="border: 1px solid white; padding: 10px;">Devuelve todas las películas o series donde título es igual a título.</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid white; padding: 10px;"><a style="color:chartreuse;" class="button" href="http://localhost:3008/api/categoria/:cat">http://localhost:3008/api/categoria/:cat</a></td>
+                <td style="border: 1px solid white; padding: 10px;">Devuelve segun la categoria ingresada (serie o pelicula) todas las series o peliculas.</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid white; padding: 10px;"><a style="color:chartreuse;" class="button" href="http://localhost:3008/api/reparto/:act">http://localhost:3008/api/reparto/:act</a></td>
+                <td style="border: 1px solid white; padding: 10px;">Devuelve todas las películas o series segun el actor/actriz.</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid white; padding: 10px;"><a style="color:chartreuse;" class="button" href="http://localhost:3008/api/trailer/:id">http://localhost:3008/api/trailer/:id</a></td>
+                <td style="border: 1px solid white; padding: 10px;">Devuelve la URL del tráiler de la película o serie.</td>
+            </tr>
+        </table>
+    </div>   
+</body>
