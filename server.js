@@ -17,6 +17,7 @@ const {
     getAllOrderByTitle,
     getTitles,
     getCategory,
+    getCast,
 } = require("./src/trailerflixController");
 
 const PORT = process.env.PORT || 3000;
@@ -63,6 +64,10 @@ app.get("/api/categoria/", (req, res) => {
 // Ruta --> “/api/reparto/:act ”
 // Crea un endpoint llamado /reparto/:act que liste el catálogo que incluya a la actriz o
 //actor indicado por el nombre. (la búsqueda del nombre debe ser parcial)
+
+app.get("/api/reparto/:act", (req, res) => {
+    res.json(getCast(req.params.act.toLowerCase()));
+});
 
 
 // Ruta --> “/api/trailer/:id”

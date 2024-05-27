@@ -59,4 +59,23 @@ function getCategory(cat) {
     }
 }
 
-module.exports = {readTrailerflix, getTrailerFind, getAllOrderByTitle, getTitles, getCategory};
+function getCast(cast) {
+    cast = removeAccent(cast);
+    let moviesCast = readTrailerflix().filter((casting) => removeAccent(casting.reparto.toLowerCase()).includes(cast));
+    
+    if (moviesCast == "")
+        return {
+            error: "no se encontraron coincidencias con ( " + cast + " )",
+        };
+    else {
+        const moviesWithCast = moviesCast.map ( movieCast => {
+            return{
+                titulo: movieCast.titulo,
+                reparto: movieCast.reparto
+            }
+        });
+        return (moviesWithCast); 
+    }
+}
+
+module.exports = {readTrailerflix, getTrailerFind, getAllOrderByTitle, getTitles, getCategory, getCast};
